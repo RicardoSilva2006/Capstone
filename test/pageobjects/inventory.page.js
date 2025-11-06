@@ -31,9 +31,6 @@ class InventoryPage extends Page {
         return $('.inventory_item_name')
     }
 
-    async openmenu() {
-        await this.menuButton.click();
-    }
     async closemenu() {
         await this.closeButton.click();
     }
@@ -53,6 +50,11 @@ class InventoryPage extends Page {
         await expect(this.closeButton).toBeExisting ();
         await this.closeButton.click();
     }
+    async menuoverlay() {
+        await this.menuButton.click()
+        await expect(this.removeItem).toBeClickable ();
+        await expect(this.cartbutton).toBeClickable ();
+            }
 
 }
 

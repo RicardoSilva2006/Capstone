@@ -12,15 +12,17 @@ class LoginPage extends Page {
     get btnSubmit () {
         return $('#login-button');
     }
-
-    async login (username, password) {
-        await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
+    get appLogo () {
+        return $('.app_logo');
     }
-    
-    open () {
-        return super.open('');
+
+    async login() {
+        const credentials = {username: 'standard_user', password:'secret_sauce'}
+        await super.open('');
+        await this.inputUsername.setValue(credentials.username);
+        await this.inputPassword.setValue(credentials.password);
+        await this.btnSubmit.click();
+        await expect(this.appLogo).toBeExisting ();
     }
 }
 

@@ -17,17 +17,18 @@ class Menubutton extends Page {
     get sauceLabs () {
         return $('[href="https://saucelabs.com/"]')
     }
-    async inventory() {
-    await this.inventorybtn.click();
-    }
-    async aboutbtn() {
-    await this.about.click();
-    }
-    async logoutbtn() {
-    await this.logout.click();
-    }
-    async resetbtn() {
-    await this.reset.click();
+    
+    async menuoptions() {;
+                await this.inventorybtn.click();
+                await expect(LoginPage.appLogo).toBeExisting();
+                await expect(this.about).toHaveHref('https://saucelabs.com/');
+                await this.logout.click
+                await LoginPage.login('standard_user', 'secret_sauce');
+                await expect(LoginPage.appLogo).toBeExisting ();
+                await InventoryPage.openmenu();
+                await this.reset.click();
+                await expect(InventoryPage.removeItem).toBeExisting ();;
+                await expect(InventoryPage.cartBadge).not.toBeExisting();
     }
 }
 export default new Menubutton();
