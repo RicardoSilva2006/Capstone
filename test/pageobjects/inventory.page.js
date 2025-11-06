@@ -1,61 +1,47 @@
 import { $ } from '@wdio/globals'
 import Page from './page.js';
+import MenubtnPage from './menubtn.page.js';
+
 
 class InventoryPage extends Page {
 
-    get menuButton () {
-        return $('#react-burger-menu-btn')
-        }
-    get cartBadge () {
-        return $('.shopping_cart_badge')
-    }
-    get cartbutton () {
-        return $('.shopping_cart_link')
-    }
-    get addItem () {
-        return $('#add-to-cart-sauce-labs-backpack')
-    }
-    get addItem2 () {
-        return $('#add-to-cart-sauce-labs-bike-light')
-    }
-    get removeItem () {
-        return $('#remove-sauce-labs-backpack')
-    }
-    get removeItem2 () {
-        return $('#remove-sauce-labs-bike-light')
-    }
-    get closeButton () {
-        return $('#react-burger-cross-btn')
-    }
-    get cartItem () {
-        return $('.inventory_item_name')
-    }
+    openOrCloseMenu (menuToShowOrCrossToClose) { return $(`#react-burger-${menuToShowOrCrossToClose}-btn`) }
+    cartElement (cartFeature) { return $(`.shopping_cart_${cartFeature}`) } 
+    addItem (nameProductdashforspace) { return $(`#add-to-cart-sauce-labs-${nameProductdashforspace}`) } 
+    removeItem (nameAddedProductdashforspace) { return $(`#remove-sauce-labs-${nameAddedProductdashforspace}`) } 
+    get cartItemBeingDisplayed () { return $('.inventory_item_name') }
 
-    async closemenu() {
-        await this.closeButton.click();
+    async hamXTest1() {
+        await this.openOrCloseMenu('menu').click();
+        await this.addItem('backpack').click();
+        await expect(this.openOrCloseMenu('cross')).toBeExisting ();
+        await this.openOrCloseMenu('cross').click();
     }
-    async addingItem() {
-        await this.addItem.click();
-    }
-    async addingItem2() {
-        await this.addItem2.click();
-    }
-    async checkingCart() {
-        await this.cartbutton.click();
-    }
-
-    async hamXTest() {
-        await this.menuButton.click();
-        await this.addItem.click();
-        await expect(this.closeButton).toBeExisting ();
-        await this.closeButton.click();
-    }
-    async menuoverlay() {
-        await this.menuButton.click()
-        await expect(this.removeItem).toBeClickable ();
-        await expect(this.cartbutton).toBeClickable ();
+    async menuOverlayingTest2() {
+        await this.openOrCloseMenu('menu').click()
+        await expect(this.removeItem('backpack')).toBeClickable ();
+        await expect(this.cartElement('link')).toBeClickable ();
             }
-
+    async checkingBadgeNumberTest4() {
+        await this.addItem('backpack').click();
+        await expect(this.cartElement('badge')).toHaveText('1');
+        await this.addItem('bike-light').click();
+        await expect(this.cartElement('badge')).toHaveText('2');
+                    }
+    async checkingCartItemTest5() {
+        await this.openOrCloseMenu('menu').click();
+        await MenubtnPage.buttonInsideMenu('reset').click();
+        await this.cartElement('link').click();
+        await expect(this.removeItem('backpack')).not.toBeExisting ();
+        await expect(this.removeItem('bike-light')).not.toBeExisting ();
+        await browser.url('https://www.saucedemo.com/cart.html')
+        await browser.back();
+        await this.addItem('backpack').click();
+        await expect(this.cartElement('badge')).toHaveText('1');
+        await this.cartElement('link').click();
+        await expect(this.cartItemBeingDisplayed).toBeExisting ();
+        await browser.url('https://www.saucedemo.com/cart.html')
+    }
 }
 
 export default new InventoryPage();

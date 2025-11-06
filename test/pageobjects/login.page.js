@@ -2,19 +2,10 @@ import { $ } from '@wdio/globals'
 import Page from './page.js';
 
 class LoginPage extends Page {
-
-   get inputUsername () {
-        return $('#user-name');
-    }
-    get inputPassword () {
-        return $('#password');
-    }
-    get btnSubmit () {
-        return $('#login-button');
-    }
-    get appLogo () {
-        return $('.app_logo');
-    }
+    get inputUsername () {return $('#user-name');}
+    get inputPassword () {return $('#password');}
+    get btnSubmit () {return $('#login-button');}
+    get appLogo () {return $('.app_logo');}
 
     async login() {
         const credentials = {username: 'standard_user', password:'secret_sauce'}
