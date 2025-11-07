@@ -17,7 +17,10 @@ class Menubutton extends Page {
                 await expect(LoginPage.appLogo).toBeExisting ();
                 await InventoryPage.openOrCloseMenu('menu').click();
                 await this.buttonInsideMenu('reset').click();
-                await expect(InventoryPage.removeItem('backpack')).toBeExisting ();;
+                await expect(InventoryPage.removeItem('sauce-labs-backpack')).toBeExisting ();;
+                await expect(InventoryPage.cartElement('badge')).not.toBeExisting();
+                await browser.refresh();
+                await expect(InventoryPage.removeItem('sauce-labs-backpack')).not.toBeExisting ();
                 await expect(InventoryPage.cartElement('badge')).not.toBeExisting();
     }
 }

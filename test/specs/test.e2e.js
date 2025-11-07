@@ -38,3 +38,9 @@ describe ('Sauce Demo correct cart page redirection with correct item', () => {
         })
     }
 )
+describe ('Sauce Demo cart page buttons functionality', () => {
+        it ('Continue Shopping, Checkout, and previous buttons work as intended on the cart page', async () => {
+            await LoginPage.login();
+            await InventoryPage.checkingCartButtons6();
+        })
+    })
