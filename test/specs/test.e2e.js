@@ -1,46 +1,21 @@
-import LoginPage from '../pageobjects/login.page.js'
-import InventoryPage from '../pageobjects/inventory.page.js'
-import MenubtnPage from '../pageobjects/menubtn.page.js'
-import inventoryPage from '../pageobjects/inventory.page.js'
+import { browser } from '@wdio/globals'
 
-describe('Sauce Demo menu closing', () => {
-        it ('Should close only when clicking on X button', async () => {
-            await LoginPage.login();
-            await inventoryPage.hamXTest1();
-        })
-})
+describe('Fast automated scroll + click interactions on Elden Ring Wiki', () => {
 
-describe('Sauce Demo menu overlay', () => {
-        it ('Should be able of interacting with menu being displayed', async () => {
-            await LoginPage.login();
-            await InventoryPage.menuOverlayingTest2();
+    it('performs rapid, bot-like clicking and scrolling', async () => {
+        await browser.url('https://eldenring.wiki.fextralife.com/Buffs+and+Debuffs');
+        const btnComments = await $('#btnComments')
+        await btnComments.click()
+        await browser.pause(2000)
+        await browser.scroll(0, -100000)
+        await browser.pause(2000)
+        // const revisions = await $('#btnPageHistory')
+        // await revisions.click()
+        const lightmode = await $('#btnThemeLight')
+        await lightmode.click()
+        await browser.pause(2000)
+        const darkmode = await $('.glyphicon glyphicon-adjust')
+        await darkmode.clicl()
+        await browser.pause(2000)
     })
 })
-
-describe ('Sauce Demo menu functionality', () => {
-        it ('Each menu option is working as intended', async () => {
-            await LoginPage.login();
-            await MenubtnPage.menuFeaturesTest3();
-    })
-})
-
-describe ('Sauce Demo add item to cart reflects in cart badge', () => {
-        it ('Adding an item to the cart does reflect in the cart badge', async () => {
-            await LoginPage.login();
-            await InventoryPage.checkingBadgeNumberTest4();
-        })
-    })
-
-describe ('Sauce Demo correct cart page redirection with correct item', () => {
-        it ('Clicking on the cart button redirects to the cart page with the correct item added', async () => {
-            await LoginPage.login();
-            await InventoryPage.checkingCartItemTest5();
-        })
-    }
-)
-describe ('Sauce Demo cart page buttons functionality', () => {
-        it ('Continue Shopping, Checkout, and previous buttons work as intended on the cart page', async () => {
-            await LoginPage.login();
-            await InventoryPage.checkingCartButtons6();
-        })
-    })
